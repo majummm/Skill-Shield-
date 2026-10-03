@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillShield — Treinamento de uso seguro de IA</title>
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32.png') }}">
+<link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='img/favicon-64.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <img class="topbar-logo" src="{{ url_for('static', filename='img/logo-header.png') }}" alt="SkillShield">
+    <div id="topbar-conta" class="topbar-conta hidden">
+      <span id="topbar-nome"></span>
+      <button id="btn-sair" class="btn-ghost">Sair</button>
+    </div>
+  </div>
+</header>
+
+<div id="app">
+
+  <!-- ===================== LANDING + LOGIN/CADASTRO ===================== -->
+  <section id="tela-landing" class="landing">
+    <div class="landing-hero">
+      <p class="eyebrow">Segurança de IA para equipes reais</p>
+      <h1>Sua equipe usa IA todos os dias.<br>Ela sabe se proteger?</h1>
+      <p class="landing-sub">
+        O SkillShield apresenta situações reais de uso de IA no trabalho. Você responde com
+        suas próprias palavras, uma IA identifica os cuidados que tomou (ou não), e um modelo
+        preditivo treinado aponta o nível de risco de cada decisão — construindo, com o tempo,
+        um perfil real de preparo.
+      </p>
+      <div class="keywords">
+        <span class="pill">Dados pessoais</span>
+        <span class="pill">Informações confidenciais</span>
+        <span class="pill">Engenharia social</span>
+        <span class="pill">Confiabilidade da IA</span>
+        <span class="pill">Propriedade intelectual</span>
+      </div>
+      <div class="landing-features">
+        <div class="feature">
+          <span class="feature-num">01</span>
+          <h3>IA preditiva treinada</h3>
+          <p>Um modelo de Machine Learning avalia cada decisão — não é só uma pontuação fixa.</p>
+        </div>
+        <div class="feature">
+          <span class="feature-num">02</span>
+          <h3>Cenários realistas</h3>
+          <p>Situações de risco que times realmente enfrentam ao usar IA no dia a dia.</p>
+        </div>
+        <div class="feature">
+          <span class="feature-num">03</span>
+          <h3>Treinamento adaptativo</h3>
+          <p>O próximo caso é escolhido com base nas suas maiores vulnerabilidades.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-auth">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button type="button" class="tab-btn active" data-tab="entrar">Entrar</button>
+          <button type="button" class="tab-btn" data-tab="cadastrar">Cadastrar</button>
+        </div>
+
+        <form id="form-entrar" class="auth-form">
+          <label>E-mail</label>
+          <input type="email" id="entrar-email" required autocomplete="email">
+          <label>Senha</label>
+          <input type="password" id="entrar-senha" required autocomplete="current-password">
+          <button type="submit">Entrar</button>
+          <p id="entrar-erro" class="erro hidden"></p>
+        </form>
+
+        <div id="bloco-cadastrar" class="hidden">
+          <div class="subtabs">
+            <button type="button" class="subtab-btn active" data-subtab="pessoal">Pessoal</button>
+            <button type="button" class="subtab-btn" data-subtab="funcionario">Funcionário</button>
+            <button type="button" class="subtab-btn" data-subtab="empresa">Empresa</button>
+          </div>
+
+          <form id="form-cadastro-pessoal" class="auth-form">
+            <label>Nome</label>
+            <input type="text" id="pessoal-nome" required>
+            <label>E-mail</label>
+            <input type="email" id="pessoal-email" required>
+            <label>Senha</label>
+            <input type="password" id="pessoal-senha" required minlength="6">
+            <button type="submit">Criar conta pessoal</button>
+          </form>
+
+          <form id="form-cadastro-funcionario" class="auth-form hidden">
+            <label>Código da empresa</label>
+            <input type="text" id="funcionario-codigo" placeholder="Ex.: A1B2C3" required>
+            <label>Nome</label>
+            <input type="text" id="funcionario-nome" required>
+            <label>E-mail</label>
+            <input type="email" id="funcionario-email" required>
+            <label>Senha</label>
+            <input type="password" id="funcionario-senha" required minlength="6">
+            <button type="submit">Entrar na equipe</button>
+          </form>
+
+          <form id="form-cadastro-empresa" class="auth-form hidden">
+            <label>Nome da empresa</label>
+            <input type="text" id="empresa-nome-input" required>
+            <label>E-mail</label>
+            <input type="email" id="empresa-email" required>
+            <label>Senha</label>
+            <input type="password" id="empresa-senha" required minlength="6">
+            <button type="submit">Criar conta da empresa</button>
+          </form>
+
+          <p id="cadastro-erro" class="erro hidden"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DASHBOARD (pessoal/funcionario) ===================== -->
+  <div id="tela-dashboard" class="hidden layout">
+    <aside class="dossie">
+      <p class="dossie-label">Sua conta</p>
+      <h2 id="dossie-nome">—</h2>
+      <p class="dossie-nivel" id="dossie-nivel-texto">Nível 1 — Iniciante</p>
+
+      <div class="ssi-bloco">
+        <div class="ssi-anel" id="ssi-anel"><span id="ssi-valor">—</span></div>
+        <p class="ssi-legenda">SSI — Índice de Segurança<br>(0 = pouco preparado · 100 = muito preparado)</p>
+      </div>
+
+      <div class="vulnerabilidade">
+        <h3>Perfil de vulnerabilidade</h3>
+        <p class="vulnerabilidade-legenda">Quanto maior a barra, maior a dificuldade naquela área.</p>
+        <div id="vuln-barras"></div>
+      </div>
+
+      <p class="dossie-contagem" id="dossie-contagem">0 casos respondidos</p>
+    </aside>
+
+    <main class="conteudo">
+
+      <!-- tela de boas-vindas / iniciar teste -->
+      <div id="bloco-boasvindas" class="boasvindas">
+        <p class="eyebrow">Bem-vindo(a) de volta</p>
+        <h2 id="boasvindas-titulo">Pronto para o próximo caso?</h2>
+        <p id="boasvindas-texto" class="boasvindas-texto">
+          Você vai receber uma situação real de uso de IA no trabalho e vai descrever, com suas
+          próprias palavras, o que faria.
+        </p>
+        <button id="btn-iniciar-teste">Iniciar primeiro teste →</button>
+      </div>
+
+      <!-- tarefa -->
+      <article class="caso-card hidden" id="tarefa-card">
+        <div class="caso-tab">
+          <span class="caso-numero">Descreva sua tarefa</span>
+        </div>
+        <p class="caso-situacao">
+          Conte o que você precisa fazer com a ajuda de uma IA — pode ser algo com planilhas,
+          relatórios, e-mails, código, textos... O SkillShield identifica os riscos e já te
+          devolve um prompt pronto e seguro pra usar.
+        </p>
+
+        <label for="tarefa-descrita">Sua tarefa</label>
+        <textarea id="tarefa-descrita" rows="5" placeholder="Ex.: Meu gestor mandou uma planilha com nomes e CPFs dos funcionários e pediu pra eu usar uma IA pra gerar um resumo..."></textarea>
+
+        <button id="btn-gerar">Gerar prompt seguro</button>
+        <p id="envio-erro" class="erro hidden"></p>
+        <p id="envio-carregando" class="carregando hidden">A IA está analisando sua tarefa…</p>
+      </article>
+
+      <!-- resultado -->
+      <article class="veredito hidden" id="resultado">
+        <div class="stamp" id="stamp">RISCO</div>
+        <div class="veredito-detalhes">
+          <h3>Categoria identificada</h3>
+          <p id="resultado-categoria" class="resultado-categoria">—</p>
+
+          <h3>Prompt seguro — pronto pra colar na sua IA</h3>
+          <div class="prompt-box">
+            <pre id="prompt-seguro"></pre>
+            <button type="button" id="btn-copiar" class="btn-ghost btn-copiar">Copiar</button>
+          </div>
+
+          <h3>O que identificamos na sua descrição original</h3>
+          <ul id="veredito-features"></ul>
+
+          <h3>Dica pra você</h3>
+          <p id="dica-personalizada" class="dica-personalizada"></p>
+
+          <button id="btn-proximo">Descrever outra tarefa →</button>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- ===================== DASHBOARD (empresa) ===================== -->
+  <div id="tela-empresa" class="hidden empresa-layout">
+    <div class="empresa-card">
+      <p class="dossie-label">Painel da equipe</p>
+      <h2 id="empresa-nome">—</h2>
+
+      <div class="convite-box">
+        <p>Código de convite da sua empresa — compartilhe com os funcionários:</p>
+        <div class="convite-codigo" id="convite-codigo">——————</div>
+        <p class="convite-obs" id="empresa-contagem">0 funcionários cadastrados</p>
+      </div>
+
+      <div class="ssi-bloco">
+        <div class="ssi-anel" id="empresa-ssi-anel"><span id="empresa-ssi-valor">—</span></div>
+        <p class="ssi-legenda">SSI médio da equipe<br>(0 = pouco preparada · 100 = muito preparada)</p>
+      </div>
+      <p class="dossie-nivel" id="empresa-nivel-texto">Nível 1 — Iniciante</p>
+
+      <div class="vulnerabilidade">
+        <h3>Perfil de vulnerabilidade da equipe</h3>
+        <p class="vulnerabilidade-legenda">Média de todos os funcionários — quanto maior, maior a dificuldade.</p>
+        <div id="empresa-vuln-barras"></div>
+      </div>
+
+      <p class="dossie-contagem" id="empresa-respostas">0 decisões registradas no total</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
