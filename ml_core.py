@@ -1,24 +1,3 @@
-"""
-Nucleo de IA do SkillShield.
-
-Este modulo concentra tudo que NAO depende de requisicao HTTP:
-- banco de cenarios (50 cenarios sinteticos, 5 categorias)
-- geracao do dataset sintetico de treinamento (por regras coerentes)
-- treinamento e selecao do modelo preditivo (Regressao Logistica / Random
-  Forest / Gradient Boosting, com XGBoost se disponivel)
-- calculo de Perfil de Vulnerabilidade e SSI
-- motor de treinamento adaptativo (escolha de categoria/dificuldade)
-
-E' o mesmo nucleo cientifico validado no notebook SkillShield_Nucleo_IA.ipynb,
-reorganizado para ser importado por um servidor web (app.py).
-
-IMPORTANTE (transparencia cientifica): o modelo preditivo e treinado com
-dados SINTETICOS gerados por regras (nao ha usuarios reais nesses dados de
-treino). As metricas de avaliacao do modelo (accuracy, F1 etc.) refletem
-apenas esse dataset sintetico e sao recalculadas a cada vez que o servidor
-inicia. Substitua `generate_dataset()` por dados reais coletados assim que
-houver volume suficiente.
-"""
 
 import random
 from dataclasses import dataclass, asdict
