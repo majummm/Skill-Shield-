@@ -1,13 +1,4 @@
-"""
-Servidor do SkillShield — versao com autenticacao (pessoal, funcionario e
-empresa) por sessao (cookie assinado do Flask).
 
-Para rodar localmente:
-    pip install -r requirements.txt
-    cp .env.example .env      # depois edite o .env com sua chave
-    python app.py
-    # abra http://localhost:5000
-"""
 
 import os
 import functools
