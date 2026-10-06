@@ -1,8 +1,4 @@
-"""
-Persistencia em SQLite: empresas, usuarios (pessoais ou vinculados a uma
-empresa) e respostas. Senhas sao guardadas com hash (werkzeug.security),
-nunca em texto puro.
-"""
+
 
 import sqlite3
 import os
