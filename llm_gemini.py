@@ -1,21 +1,4 @@
-"""
-Camada de IA generativa (Google Gemini).
 
-Diferente da versao anterior (que so extraia caracteristicas de uma
-resposta a um cenario fixo), aqui o Gemini faz DUAS coisas de uma vez a
-partir da tarefa real que o usuario descreve:
-
-1. Identifica a categoria de risco da tarefa e as 9 caracteristicas de
-   comportamento (mesma estrutura usada pelo nucleo preditivo em
-   ml_core.py) — isso alimenta o modelo de ML treinado, que classifica o
-   risco do PLANO ORIGINAL do usuario.
-2. Gera um "prompt seguro": o texto pronto para a pessoa colar numa IA,
-   ja com instrucoes de anonimizacao, limites de escopo e avisos
-   necessarios para aquele tipo de tarefa.
-
-Roda no servidor (nunca no navegador), para que a chave de API do Google
-nunca seja exposta ao cliente.
-"""
 
 import json
 import os
