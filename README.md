@@ -1,5 +1,5 @@
 # SkillShield — Site
-
+ resumoooo para entender como funciona ( estuda apartir daqui carlos
 Site completo do SkillShield: landing page, login/cadastro (pessoal, funcionário
 de empresa ou empresa) e um gerador de **prompt seguro**. A pessoa descreve uma
 tarefa real que quer fazer com uma IA, o Google Gemini identifica os riscos
