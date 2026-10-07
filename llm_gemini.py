@@ -107,7 +107,7 @@ def analisar_tarefa(tarefa_descrita: str) -> dict:
     prompt = _montar_prompt(tarefa_descrita)
 
     response = client.models.generate_content(
-        model=_GEMINI_MODEL,
+        model=genai.GenerativeModel("gemini-3.8-flash"),
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
