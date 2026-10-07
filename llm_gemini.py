@@ -1,11 +1,10 @@
-
-
 import json
 import os
 
-from ml_core import FEATURES, CATEGORIES
+from ml_core import CATEGORIES, FEATURES
 
-_GEMINI_MODEL = os.environ.get("GEMINI_MODEL", ""gemini-3.8-flash")")
+# CORREÇÃO 1: String corrigida sem aspas duplicadas
+_GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 
 
 class GeminiNotConfigured(RuntimeError):
@@ -98,16 +97,15 @@ def _schema():
 
 
 def analisar_tarefa(tarefa_descrita: str) -> dict:
-    """Retorna {"categoria": str, "caracteristicas": {feature: 0/1}, "prompt_seguro": str}.
-    Levanta excecao em caso de erro — o app.py decide como avisar o usuario,
-    nunca inventamos um resultado quando a chamada falha."""
+    """Retorna {"categoria": str, "caracteristicas": {feature: 0/1}, "prompt_seguro": str}."""
     from google.genai import types
 
     client = _get_client()
     prompt = _montar_prompt(tarefa_descrita)
 
+    # CORREÇÃO 2: Passar a constante/string do modelo diretamente
     response = client.models.generate_content(
-        model=genai.GenerativeModel("gemini-3.8-flash"),
+        model=_GEMINI_MODEL,
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
@@ -118,8 +116,6 @@ def analisar_tarefa(tarefa_descrita: str) -> dict:
 
     categoria = dados.get("categoria")
     if categoria not in CATEGORIES:
-        # fallback de seguranca: se a LLM devolver algo fora do enum por
-        # qualquer motivo, nao travamos o fluxo, so caimos na primeira categoria.
         categoria = CATEGORIES[0]
 
     caracteristicas_brutas = dados.get("caracteristicas", {})
