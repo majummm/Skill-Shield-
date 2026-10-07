@@ -218,7 +218,8 @@ def gerar_prompt():
     tarefa_descrita = (data.get("tarefa_descrita") or "").strip()
 
     if not tarefa_descrita:
-        return jsonify({"erro": "Descreva a tarefa que voce quer fazer com uma IA."}), 400
+       # return jsonify({"erro": "Descreva a tarefa que voce quer fazer com uma IA."}), 400
+       return jsonify({"erro": "testesss"}), 400
     if len(tarefa_descrita) < 10:
         return jsonify({"erro": "Descreva a tarefa com um pouco mais de detalhe."}), 400
 
