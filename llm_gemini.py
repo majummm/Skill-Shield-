@@ -5,7 +5,7 @@ import os
 
 from ml_core import FEATURES, CATEGORIES
 
-_GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+_GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
 
 
 class GeminiNotConfigured(RuntimeError):
